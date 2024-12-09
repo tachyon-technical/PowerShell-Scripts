@@ -1,6 +1,6 @@
 ### Directory
 
-- **WinServer_InitialConfig.ps1** is for short-lived Windows Server VMs in a lab environment
+- [WinServer_InitialConfig.ps1](https://github.com/tachyon-technical/PowerShell-Scripts/blob/main/WinServer_InitialConfig.ps1) is for short-lived Windows Server VMs in a lab environment
   - Disables IPv6 on interface
   - Disables IPv6 driver options
   - Disables 6to4, Teredo, and ISATAP
