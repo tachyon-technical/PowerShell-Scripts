@@ -388,6 +388,8 @@ function Disable-MSScheduledTasks {
 
 }
 
+######################
+
 # DEFINE VARIABLES HERE
 
 $EthernetInterface = Get-NetAdapter -Physical 
@@ -395,6 +397,8 @@ $IPv4Address = "192.168.122.102"
 $NetMask = 24
 $DefaultGateway = "192.168.122.1"
 $NameServers = @("1.1.1.1", " 8.8.8.8")
+$TimeZone = "US Mountain Standard Time"
+$ComputerName = "dc01"
 
 
 Disable-IPv6 -NetAdapter $EthernetInterface
@@ -403,3 +407,26 @@ Disable-Services
 Block-MSUpdateDomains
 Disable-MSFirewallRules
 Disable-MSScheduledTasks
+
+### Few remaining items
+### Not sure if they're worth a function
+# Timezone
+Write-Host "Setting timezone."
+try {
+  Set-TimeZone -Id $TimeZone -ErrorAction Stop 
+  Write-Host -ForegroundColor Green "`tChanged timezone to $TimeZone"
+}
+catch {
+  Write-Host -ForegroundColor Yellow "`tError changing timezone to $TimeZone"
+}
+
+
+#Set hostname
+Write-Host "Setting hostname."
+try {
+  Rename-Computer -NewName $ComputerName -Force -ErrorAction Stop
+  Write-Host -ForegroundColor Green "`tRenamed computer to $ComputerName"
+}
+catch {
+  Write-Host -ForegroundColor Yellow "`tError changing computer name to $ComputerName"
+}
